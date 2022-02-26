@@ -3,11 +3,22 @@ import 'package:application_frontend/components/nav_drawer.dart';
 import 'package:application_frontend/screens/user_auth.dart';
 import 'package:application_frontend/utils/auth.dart';
 import 'package:application_frontend/utils/constants.dart';
+import 'package:application_frontend/utils/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  final String? token;
+  Settings({Key? key, this.token}) : super(key: key);
+
+  factory Settings.fromJson(Map<String, dynamic> json) {
+    return Settings(
+      token: json['id'],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,10 +140,10 @@ class Settings extends StatelessWidget {
                       padding: EdgeInsets.only(left: 0, top: 15),
                       child: GestureDetector(
                         onTap: () async {
-                          await Auth().logout();
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => UserAuth()));
+                          await launch("https://t.me/soloboloboom_bot");
+                          await HttpService().linkTelegram();
+                          Clipboard.setData(ClipboardData(text: "$token"));
+                          Fluttertoast.showToast(msg: "Copied Token");
                         },
                         child: Row(
                           children: [
