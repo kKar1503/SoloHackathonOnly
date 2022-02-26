@@ -1,3 +1,4 @@
+import 'package:application_frontend/utils/data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Auth {
@@ -6,20 +7,26 @@ class Auth {
   Future<bool> register({
     required String email,
     required String password,
-    // required String telegram,
-    // required String nric,
-    // required String type,
+    required String first,
+    required String last,
+    required String nric,
+    required String type,
   }) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
       );
-      User? user = result.user;
+      User user = result.user as User;
+      String? uid = user.uid;
 
-     
-      // await DatabaseService(uid: user.uid).updateUserData(email, password, name,
-      //     age, height, weight, bodyFatPercentage, fitnessLevel);
+      await DataService(uid: user.uid).updateUserData(
+          nric: nric,
+          email: email,
+          password: password,
+          last: last,
+          first: first,
+          type: type);
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -39,7 +46,6 @@ class Auth {
 
   Future<bool> login(String email, String password) async {
     try {
-      
       await _auth.signInWithEmailAndPassword(
         email: email.trim(),
         password: password.trim(),
@@ -60,23 +66,13 @@ class Auth {
     return false;
   }
 
-  // Future<bool> anon() async {
-  //   try {
-  //     await _auth.signInAnonymously();
-  //     return true;
-  //   } on FirebaseAuthException {
-  //     return false;
-  //   }
-  // }
+   Future<bool> logout() async {
+    try {
+      await _auth.signOut();
+      return true;
+    } on FirebaseAuthException {
+      return false;
+    }
+  }
 
-  // // get user UID
-  // Future<String> getCurrentID() async {
-  //   return (await _auth.currentUser).uid;
-  // }
-
-  // // get user UID
-  // User getCurrentUser() {
-  //   //return firebase.auth().currentUser;
-  //   return _auth.currentUser;
-  // }
 }
