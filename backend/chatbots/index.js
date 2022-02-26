@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.TELEGRAM_PORT || 5000;
 const { TELEGRAM_TOKEN, SERVER_URL } = process.env;
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
 const URI = `/webhook/${TELEGRAM_TOKEN}`;

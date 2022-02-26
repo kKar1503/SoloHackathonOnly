@@ -1,9 +1,7 @@
 const express = require('express');
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
-const { validation } = require('./validation');
-const jwt = require('jsonwebtoken');
-const { async } = require('@firebase/util');
+const validation = require('./validation');
 
 class TelegramServer {
 	constructor(port, api, webhook, uri) {

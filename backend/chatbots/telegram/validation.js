@@ -1,4 +1,3 @@
-const { async } = require('@firebase/util');
 const { patients, doctors } = require('../../firestore');
 
 let validation = {
@@ -19,4 +18,4 @@ let validation = {
 	},
 };
 
-module.exports = { validation };
+module.exports = validation;
