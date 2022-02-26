@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:application_frontend/screens/home.dart';
+import 'package:application_frontend/screens/settings.dart';
 import 'package:application_frontend/screens/user_auth.dart';
 import 'package:application_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +11,28 @@ import 'package:flutterfire_ui/auth.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final routes = {
+    "/home": (context) => Home(),
+    "/settings": (context) => Settings(),
+    "/": (context) => UserAuth(),
+
+    //"/fifth": (context) => SpeechToTextTest(question: "question")
+    // Pholder(
+    //     index:3,
+    //   route: "fourth",
+    // ),
+  };
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "/",
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -39,4 +53,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

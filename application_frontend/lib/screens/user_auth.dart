@@ -150,6 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             Auth auth = Auth();
+
                             String email = _emailController.value.text;
                             String password = _passwordController.value.text;
                             bool shouldNavigate =
@@ -210,10 +211,11 @@ class _SignUpState extends State<SignUp> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _nricController = TextEditingController();
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _canLogin = true;
+  bool _doctorCheck = false;
+  bool _patientCheck = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -389,7 +391,44 @@ class _SignUpState extends State<SignUp> {
                       Padding(
                           padding: EdgeInsets.symmetric(vertical: 12.0),
                           child: Row(
-                            children: [],
+                            children: [
+                              Text(
+                                "Doctor",
+                                style: TextStyle(
+                                    fontWeight: kmedium,
+                                    color: blue,
+                                    fontSize: 16),
+                              ),
+                              Checkbox(
+                                value: _doctorCheck,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    if (_patientCheck) {
+                                      _patientCheck = !_patientCheck;
+                                    }
+                                    _doctorCheck = value ?? false;
+                                  });
+                                },
+                              ),
+                              Text(
+                                "Patient",
+                                style: TextStyle(
+                                    fontWeight: kmedium,
+                                    color: blue,
+                                    fontSize: 16),
+                              ),
+                              Checkbox(
+                                value: _patientCheck,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    if (_doctorCheck) {
+                                      _doctorCheck = !_doctorCheck;
+                                    }
+                                    _patientCheck = value ?? false;
+                                  });
+                                },
+                              ),
+                            ],
                           )),
 
                       Padding(
@@ -397,10 +436,19 @@ class _SignUpState extends State<SignUp> {
                         child: ElevatedButton(
                           onPressed: () async {
                             Auth auth = Auth();
+                            String first = _firstNameController.value.text;
+                            String last = _lastNameController.value.text;
+                            String nric = _nricController.value.text;
                             String email = _emailController.value.text;
                             String password = _passwordController.value.text;
+                            String type = _patientCheck ? "patient" : "doctor";
                             bool shouldNavigate = await auth.register(
-                                email: email, password: password);
+                                type: type,
+                                last: last,
+                                first: first,
+                                nric: nric,
+                                email: email,
+                                password: password);
                             if (shouldNavigate) {
                               Navigator.pushReplacement(
                                 context,
