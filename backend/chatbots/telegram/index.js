@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios').default;
 const bodyParser = require('body-parser');
+const validation = require('./validation');
 
 class TelegramServer {
 	constructor(port, api, webhook, uri) {
@@ -11,13 +12,8 @@ class TelegramServer {
 		this.app.post(uri, async (req, res) => {
 			console.log(req.body);
 
-			const chatId = req.body.message.chat.id;
-			const text = req.body.message.text;
-
-			await axios.post(`${api}/sendMessage`, {
-				chat_id: chatId,
-				text: text,
-			});
+			if (!validation.validate(req.body)) {
+			}
 
 			return res.send();
 		});
