@@ -1,5 +1,5 @@
 const { async } = require('@firebase/util');
-const { patients, doctors } = require('./firestore');
+const { patients, doctors } = require('../../firestore');
 
 let validation = {
 	validate: async (ctx) => {
