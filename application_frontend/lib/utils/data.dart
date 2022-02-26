@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 // import 'package:jamal_v1/model/user_particulars.dart';
 
 class DataService {
@@ -7,8 +8,7 @@ class DataService {
 
   DataService({required this.uid});
 
-  final CollectionReference particularsCollection =
-      FirebaseFirestore.instance.collection('particulars');
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future updateUserData({
     required String email,
@@ -17,17 +17,22 @@ class DataService {
     required String first,
     required String nric,
     required String type,
+    required String dob,
   }) async {
-    // retrieve current date
-
-    return await particularsCollection.doc(uid).set({
+    Map data = {
       'email': email,
       'password': password,
       'last': last,
       'first': first,
       'nric': nric,
       'type': type,
-    });
+      'dob': dob,
+    };
+
+    CollectionReference collection = type == "doctor"
+        ? firestore.collection("doctors")
+        : firestore.collection("patients");
+    return await collection.doc(uid).set({"data": data});
   }
 }
 

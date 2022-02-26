@@ -11,6 +11,7 @@ class Auth {
     required String last,
     required String nric,
     required String type,
+    required String dob,
   }) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -26,6 +27,7 @@ class Auth {
           password: password,
           last: last,
           first: first,
+          dob: dob,
           type: type);
 
       return true;
@@ -66,7 +68,7 @@ class Auth {
     return false;
   }
 
-   Future<bool> logout() async {
+  Future<bool> logout() async {
     try {
       await _auth.signOut();
       return true;
@@ -75,4 +77,8 @@ class Auth {
     }
   }
 
+  String getCurrentID() {
+    String uuid = _auth.currentUser!.uid;
+    return uuid;
+  }
 }

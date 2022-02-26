@@ -2,6 +2,7 @@ import 'package:application_frontend/screens/home.dart';
 import 'package:application_frontend/utils/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:application_frontend/utils/constants.dart';
+import 'package:intl/intl.dart';
 
 class UserAuth extends StatefulWidget {
   const UserAuth({Key? key}) : super(key: key);
@@ -213,7 +214,8 @@ class _SignUpState extends State<SignUp> {
   final _nricController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _canLogin = true;
+  final _dobController = TextEditingController();
+
   bool _doctorCheck = false;
   bool _patientCheck = false;
   @override
@@ -384,6 +386,29 @@ class _SignUpState extends State<SignUp> {
                       ),
 
                       Text(
+                        "DOB:",
+                        style: TextStyle(
+                            fontWeight: kmedium, color: navyBlue, fontSize: 16),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.0),
+                        child: TextFormField(
+                          controller: _dobController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              hintText: "DD/MM/YYYY",
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(
+                                    color: blue,
+                                  )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: Colors.grey))),
+                        ),
+                      ),
+
+                      Text(
                         "Register as a:",
                         style: TextStyle(
                             fontWeight: kmedium, color: navyBlue, fontSize: 16),
@@ -436,11 +461,17 @@ class _SignUpState extends State<SignUp> {
                         child: ElevatedButton(
                           onPressed: () async {
                             Auth auth = Auth();
+
                             String first = _firstNameController.value.text;
                             String last = _lastNameController.value.text;
                             String nric = _nricController.value.text;
                             String email = _emailController.value.text;
                             String password = _passwordController.value.text;
+                            DateTime dob = DateFormat("yMd")
+                                .parse(_dobController.value.text);
+
+                            String unixDOB =
+                                dob.millisecondsSinceEpoch.toString();
                             String type = _patientCheck ? "patient" : "doctor";
                             bool shouldNavigate = await auth.register(
                                 type: type,
@@ -448,7 +479,8 @@ class _SignUpState extends State<SignUp> {
                                 first: first,
                                 nric: nric,
                                 email: email,
-                                password: password);
+                                password: password,
+                                dob: unixDOB);
                             if (shouldNavigate) {
                               Navigator.pushReplacement(
                                 context,
