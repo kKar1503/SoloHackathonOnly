@@ -140,10 +140,10 @@ class Settings extends StatelessWidget {
                       padding: EdgeInsets.only(left: 0, top: 15),
                       child: GestureDetector(
                         onTap: () async {
-                          await launch("https://t.me/soloboloboom_bot");
                           await HttpService().linkTelegram();
                           Clipboard.setData(ClipboardData(text: "$token"));
                           Fluttertoast.showToast(msg: "Copied Token");
+                          await launch("https://t.me/soloboloboom_bot");
                         },
                         child: Row(
                           children: [
