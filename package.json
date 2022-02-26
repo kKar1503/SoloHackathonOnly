@@ -1,0 +1,25 @@
+{
+	"name": "solohackathononly",
+	"version": "1.0.0",
+	"description": "Solo Bolo Boom Waddup",
+	"main": "backend/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kKar1503/SoloHackathonOnly.git"
+	},
+	"author": "Malcolm Sng, Yam Kar Lok",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kKar1503/SoloHackathonOnly/issues"
+	},
+	"homepage": "https://github.com/kKar1503/SoloHackathonOnly#readme",
+	"dependencies": {
+		"dotenv": "^16.0.0",
+		"express": "^4.17.3",
+		"express-validator": "^6.14.0",
+		"node-fetch": "^3.2.0"
+	}
+}
