@@ -19,6 +19,13 @@ class APIServer {
 			return res.send({ token: linkingToken });
 		});
 
+		this.app.post('/telegram/verify', async (req, res) => {
+			const token = req.body.token;
+			const linkingToken = await TelegramLink(token, token);
+
+			return res.send({ token: linkingToken });
+		});
+
 		this.app.listen(port, async () => {
 			console.log(`App running on port ${port}`);
 		});
