@@ -40,6 +40,8 @@ dependencies:
   http: ^0.13.4
   fluttertoast: ^8.0.9
   url_launcher: ^6.0.20
+  provider: ^6.0.2
+  flutter_tindercard: ^0.2.0
 
 dev_dependencies:
   flutter_test:
