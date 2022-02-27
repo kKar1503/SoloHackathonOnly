@@ -13,13 +13,10 @@ class APIServer {
 		this.app.use(bodyParser.json());
 
 		this.app.post('/telegram/link', async (req, res) => {
-			console.log(req.body);
 			const documentId = req.body.documentId;
-			TelegramLink(documentId);
+			const linkingToken = await TelegramLink(documentId, token);
 
-			console.log('success');
-
-			return res.send({ token: 'dummyToken' });
+			return res.send({ token: linkingToken });
 		});
 
 		this.app.listen(port, async () => {
