@@ -3,10 +3,12 @@
 import 'package:application_frontend/screens/home.dart';
 import 'package:application_frontend/screens/settings.dart';
 import 'package:application_frontend/screens/user_auth.dart';
+
 import 'package:application_frontend/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

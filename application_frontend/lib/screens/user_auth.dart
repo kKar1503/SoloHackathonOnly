@@ -1,8 +1,11 @@
 import 'package:application_frontend/screens/home.dart';
 import 'package:application_frontend/utils/auth.dart';
+
+import 'package:application_frontend/utils/http.dart';
 import 'package:flutter/material.dart';
 import 'package:application_frontend/utils/constants.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class UserAuth extends StatefulWidget {
   const UserAuth({Key? key}) : super(key: key);
@@ -150,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.symmetric(vertical: 12.0),
                         child: ElevatedButton(
                           onPressed: () async {
+                            // HttpService().linkTelegram();
                             Auth auth = Auth();
 
                             String email = _emailController.value.text;
@@ -160,7 +164,8 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Home(),
+                                  builder: (context) =>
+                                      Home(),
                                 ),
                               );
                             }
